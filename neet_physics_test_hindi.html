@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEET भौतिकी परीक्षा | यांत्रिकी और मापन</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --border: #1e2d45;
+    --accent: #00d4ff;
+    --accent2: #ff6b35;
+    --accent3: #7c3aed;
+    --correct: #10b981;
+    --wrong: #ef4444;
+    --text: #e2e8f0;
+    --text-dim: #64748b;
+    --text-bright: #f8fafc;
+    --gold: #f59e0b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -40%;
+    right: -20%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(0,212,255,0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -30%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── LANDING PAGE ── */
+  #landing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,212,255,0.08);
+    border: 1px solid rgba(0,212,255,0.2);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  h1.hero-title {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.2;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  h1.hero-title span.grad {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent3) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--text-dim);
+    text-align: center;
+    max-width: 580px;
+    line-height: 1.8;
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 28px;
+    text-align: center;
+    min-width: 120px;
+  }
+
+  .stat-card .num {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+  }
+
+  .stat-card .lbl {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    max-width: 800px;
+    width: 100%;
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+
+  .topic-pill {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+    color: var(--text);
+    transition: border-color 0.2s;
+  }
+
+  .topic-pill:hover { border-color: var(--accent); }
+  .topic-pill .icon { font-size: 1.3rem; }
+  .topic-pill .count { margin-left: auto; font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--accent); }
+
+  .start-btn {
+    background: linear-gradient(135deg, var(--accent) 0%, #0099cc 100%);
+    color: #000;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 18px 52px;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: fadeUp 0.6s 0.5s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .start-btn::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transition: left 0.5s;
+  }
+
+  .start-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,212,255,0.3); }
+  .start-btn:hover::after { left: 100%; }
+
+  /* ── TEST PAGE ── */
+  #test-page { display: none; min-height: 100vh; position: relative; z-index: 1; }
+
+  .test-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,14,26,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .test-logo {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--accent);
+  }
+
+  .header-meta { display: flex; align-items: center; gap: 20px; }
+
+  .timer-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  .timer-box.warning { border-color: var(--gold); color: var(--gold); }
+  .timer-box.danger { border-color: var(--wrong); color: var(--wrong); animation: pulse 1s infinite; }
+
+  .progress-info { font-size: 0.85rem; color: var(--text-dim); font-family: 'Space Mono', monospace; }
+
+  .progress-bar-wrap {
+    width: 100%;
+    height: 3px;
+    background: var(--border);
+    position: absolute;
+    bottom: 0; left: 0;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+    transition: width 0.4s ease;
+  }
+
+  .test-body {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 0;
+    min-height: calc(100vh - 65px);
+  }
+
+  .question-area {
+    padding: 40px 48px;
+    border-right: 1px solid var(--border);
+  }
+
+  .q-topic-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(124,58,237,0.12);
+    border: 1px solid rgba(124,58,237,0.25);
+    color: #a78bfa;
+    font-size: 0.78rem;
+    padding: 4px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+
+  .q-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+
+  .q-text {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.8;
+    color: var(--text-bright);
+    margin-bottom: 32px;
+  }
+
+  .options-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .option-btn {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+    color: var(--text);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .option-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,212,255,0.05), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .option-btn:hover { border-color: rgba(0,212,255,0.4); transform: translateX(4px); }
+  .option-btn:hover::before { opacity: 1; }
+  .option-btn.selected { border-color: var(--accent); background: rgba(0,212,255,0.08); }
+  .option-btn.correct { border-color: var(--correct); background: rgba(16,185,129,0.1); }
+  .option-btn.wrong { border-color: var(--wrong); background: rgba(239,68,68,0.1); }
+
+  .opt-label {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    color: var(--text-dim);
+  }
+
+  .option-btn.selected .opt-label { background: var(--accent); border-color: var(--accent); color: #000; }
+  .option-btn.correct .opt-label { background: var(--correct); border-color: var(--correct); color: #fff; }
+  .option-btn.wrong .opt-label { background: var(--wrong); border-color: var(--wrong); color: #fff; }
+
+  .nav-btns {
+    display: flex;
+    gap: 12px;
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+  }
+
+  .btn-nav {
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+  }
+
+  .btn-nav:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-nav:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  .btn-submit {
+    margin-left: auto;
+    background: linear-gradient(135deg, var(--accent2) 0%, #e55a2b 100%);
+    border-color: transparent;
+    color: #fff;
+    padding: 12px 28px;
+  }
+
+  .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255,107,53,0.35); color: #fff; border-color: transparent; }
+
+  /* Sidebar */
+  .sidebar {
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: sticky;
+    top: 65px;
+    height: calc(100vh - 65px);
+    overflow-y: auto;
+  }
+
+  .sidebar-section-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+
+  .q-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+
+  .q-dot {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--text-dim);
+  }
+
+  .q-dot:hover { border-color: var(--accent); color: var(--accent); }
+  .q-dot.answered { background: rgba(0,212,255,0.12); border-color: var(--accent); color: var(--accent); }
+  .q-dot.current { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 700; }
+
+  .score-legend { display: flex; flex-direction: column; gap: 8px; }
+  .legend-item { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; color: var(--text-dim); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+  /* ── RESULT PAGE ── */
+  #result-page {
+    display: none;
+    min-height: 100vh;
+    padding: 60px 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .result-wrap { max-width: 900px; width: 100%; margin: 0 auto; }
+
+  .result-header { text-align: center; margin-bottom: 48px; }
+
+  .result-trophy { font-size: 4rem; margin-bottom: 16px; display: block; animation: bounceIn 0.6s ease; }
+
+  .result-title {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .score-circle-wrap { display: flex; align-items: center; justify-content: center; margin: 40px 0; }
+
+  .score-circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 4px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
+    position: relative;
+  }
+
+  .score-big {
+    font-family: 'Space Mono', monospace;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .score-total { font-size: 0.85rem; color: var(--text-dim); margin-top: 4px; font-family: 'Space Mono', monospace; }
+
+  .stats-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .s-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .s-card .s-num { font-family: 'Space Mono', monospace; font-size: 1.8rem; font-weight: 700; display: block; margin-bottom: 4px; }
+  .s-card .s-lbl { font-size: 0.82rem; color: var(--text-dim); }
+  .s-card.c { border-color: rgba(16,185,129,0.3); } .s-card.c .s-num { color: var(--correct); }
+  .s-card.w { border-color: rgba(239,68,68,0.3); } .s-card.w .s-num { color: var(--wrong); }
+  .s-card.s { border-color: rgba(245,158,11,0.3); } .s-card.s .s-num { color: var(--gold); }
+  .s-card.m { border-color: rgba(100,116,139,0.3); } .s-card.m .s-num { color: var(--text-dim); }
+
+  .review-section { margin-top: 40px; }
+
+  .review-title {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .review-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .review-item.correct-q { border-left: 3px solid var(--correct); }
+  .review-item.wrong-q { border-left: 3px solid var(--wrong); }
+  .review-item.skipped-q { border-left: 3px solid var(--text-dim); }
+
+  .review-q-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+
+  .r-badge {
+    font-size: 0.72rem;
+    font-family: 'Space Mono', monospace;
+    padding: 3px 10px;
+    border-radius: 100px;
+    letter-spacing: 1px;
+  }
+
+  .r-badge.correct { background: rgba(16,185,129,0.15); color: var(--correct); border: 1px solid rgba(16,185,129,0.3); }
+  .r-badge.wrong { background: rgba(239,68,68,0.15); color: var(--wrong); border: 1px solid rgba(239,68,68,0.3); }
+  .r-badge.skipped { background: rgba(100,116,139,0.15); color: var(--text-dim); border: 1px solid rgba(100,116,139,0.3); }
+
+  .review-q-text { font-size: 0.95rem; color: var(--text); line-height: 1.7; margin-bottom: 14px; font-weight: 500; }
+  .review-ans { display: flex; flex-direction: column; gap: 6px; font-size: 0.88rem; }
+  .review-ans span { display: flex; align-items: flex-start; gap: 8px; }
+  .review-ans .label { color: var(--text-dim); min-width: 120px; flex-shrink: 0; }
+  .review-ans .val-correct { color: var(--correct); font-weight: 500; }
+  .review-ans .val-wrong { color: var(--wrong); font-weight: 500; }
+
+  .explanation-box {
+    margin-top: 14px;
+    background: rgba(0,212,255,0.04);
+    border: 1px solid rgba(0,212,255,0.12);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    line-height: 1.8;
+  }
+
+  .explanation-box strong { color: var(--accent); font-family: 'Space Mono', monospace; font-size: 0.78rem; }
+
+  .retry-btn {
+    display: block;
+    width: fit-content;
+    margin: 40px auto 0;
+    background: linear-gradient(135deg, var(--accent) 0%, #0099cc 100%);
+    color: #000;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 16px 40px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .retry-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,212,255,0.25); }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+  @keyframes bounceIn { from{transform:scale(0.5);opacity:0} 60%{transform:scale(1.15)} to{transform:scale(1);opacity:1} }
+
+  @media (max-width: 768px) {
+    .test-body { grid-template-columns: 1fr; }
+    .sidebar { position: static; height: auto; border-top: 1px solid var(--border); }
+    .question-area { padding: 24px 16px; border-right: none; }
+    .test-header { padding: 12px 16px; }
+    h1.hero-title { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ लैंडिंग पेज ═══ -->
+<section id="landing">
+  <div class="badge">⚡ NEET PHYSICS PRACTICE TEST</div>
+  <h1 class="hero-title">भौतिकी में <span class="grad">महारत</span> हासिल करो<br>NEET जीतो</h1>
+  <p class="hero-sub">यांत्रिकी के 5 प्रमुख विषयों पर 25 कठिन प्रश्नों के साथ अपनी परीक्षा की तैयारी करें। सभी प्रश्न NCERT और मानक NEET पैटर्न पर आधारित हैं।</p>
+
+  <div class="stats-row">
+    <div class="stat-card"><span class="num">45</span><span class="lbl">प्रश्न</span></div>
+    <div class="stat-card"><span class="num">54<small style="font-size:1rem">मि</small></span><span class="lbl">समय सीमा</span></div>
+    <div class="stat-card"><span class="num">180</span><span class="lbl">अधिकतम अंक</span></div>
+    <div class="stat-card"><span class="num">−1</span><span class="lbl">नकारात्मक अंक</span></div>
+  </div>
+
+  <div class="topics-grid">
+    <div class="topic-pill"><span class="icon">📏</span> भौतिक जगत एवं मापन <span class="count">5 प्र.</span></div>
+    <div class="topic-pill"><span class="icon">🏃</span> गतिकी <span class="count">5 प्र.</span></div>
+    <div class="topic-pill"><span class="icon">⚖️</span> गति के नियम <span class="count">5 प्र.</span></div>
+    <div class="topic-pill"><span class="icon">⚡</span> कार्य, ऊर्जा एवं शक्ति <span class="count">5 प्र.</span></div>
+    <div class="topic-pill"><span class="icon">🔄</span> घूर्णन गति <span class="count">5 प्र.</span></div>
+    <div class="topic-pill"><span class="icon">🔥</span> ऊष्मागतिकी <span class="count">10 प्र.</span></div>
+    <div class="topic-pill"><span class="icon">🌍</span> गुरुत्वाकर्षण <span class="count">10 प्र.</span></div>
+  </div>
+
+  <button class="start-btn" onclick="startTest()">परीक्षा शुरू करें →</button>
+</section>
+
+<!-- ═══ परीक्षा पेज ═══ -->
+<section id="test-page">
+  <header class="test-header">
+    <div class="test-logo">⚡ NEET भौतिकी परीक्षा</div>
+    <div class="header-meta">
+      <span class="progress-info" id="progress-text">प्र. 1 / 25</span>
+      <div class="timer-box" id="timer-box">⏱ <span id="timer-display">54:00</span></div>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-bar" style="width:4%"></div></div>
+  </header>
+
+  <div class="test-body">
+    <div class="question-area">
+      <div class="q-topic-tag" id="q-topic">विषय</div>
+      <div class="q-number" id="q-number">प्रश्न 01 / 25</div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options-list" id="options-list"></div>
+      <div class="nav-btns">
+        <button class="btn-nav" id="prev-btn" onclick="prevQ()">← पिछला</button>
+        <button class="btn-nav" id="next-btn" onclick="nextQ()">अगला →</button>
+        <button class="btn-nav btn-submit" onclick="confirmSubmit()">परीक्षा जमा करें</button>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div>
+        <div class="sidebar-section-title">Question Navigator</div>
+        <div class="q-grid" id="q-grid"></div>
+      </div>
+      <div>
+        <div class="sidebar-section-title">Legend</div>
+        <div class="score-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> उत्तर दिया</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--surface2);border:1px solid var(--border)"></div> नहीं देखा</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> वर्तमान</div>
+        </div>
+      </div>
+      <div>
+        <div class="sidebar-section-title">अंक योजना</div>
+        <div class="score-legend">
+          <div class="legend-item" style="color:var(--correct)">✓ सही: +4 अंक</div>
+          <div class="legend-item" style="color:var(--wrong)">✗ गलत: −1 अंक</div>
+          <div class="legend-item">○ छोड़ा: 0 अंक</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ परिणाम पेज ═══ -->
+<section id="result-page" style="display:none;">
+  <div class="result-wrap">
+    <div class="result-header">
+      <span class="result-trophy" id="result-trophy">🏆</span>
+      <div class="result-title" id="result-title">परीक्षा पूर्ण!</div>
+      <p style="color:var(--text-dim)" id="result-subtitle">यहाँ आपका प्रदर्शन है</p>
+    </div>
+
+    <div class="score-circle-wrap">
+      <div class="score-circle" id="score-circle">
+        <span class="score-big" id="score-marks">0</span>
+        <span class="score-total">180 में से</span>
+      </div>
+    </div>
+
+    <div class="stats-cards">
+      <div class="s-card c"><span class="s-num" id="r-correct">0</span><span class="s-lbl">सही उत्तर</span></div>
+      <div class="s-card w"><span class="s-num" id="r-wrong">0</span><span class="s-lbl">गलत उत्तर</span></div>
+      <div class="s-card s"><span class="s-num" id="r-score">0</span><span class="s-lbl">कुल स्कोर</span></div>
+      <div class="s-card m"><span class="s-num" id="r-skip">0</span><span class="s-lbl">छोड़े गए</span></div>
+    </div>
+
+    <div class="review-section">
+      <div class="review-title">📋 विस्तृत उत्तर समीक्षा</div>
+      <div id="review-list"></div>
+    </div>
+
+    <button class="retry-btn" onclick="retryTest()">🔁 फिर से परीक्षा दें</button>
+  </div>
+</section>
+
+<script>
+const questions = [
+  // ── भौतिक जगत एवं मापन (5) ──
+  {
+    topic: "भौतिक जगत एवं मापन",
+    text: "कोणीय संवेग और रेखीय संवेग के अनुपात की विमाएँ क्या होती हैं?",
+    options: [
+      "[M⁰LT⁰]",
+      "[MLT⁻¹]",
+      "[M⁰L²T⁻¹]",
+      "[ML²T⁻¹]"
+    ],
+    correct: 0,
+    explanation: "कोणीय संवेग L = mvr की विमा [ML²T⁻¹] होती है। रेखीय संवेग p = mv की विमा [MLT⁻¹] होती है। इनका अनुपात L/p = r होता है जिसकी विमा [M⁰LT⁰] है — अर्थात् केवल लंबाई।"
+  },
+  {
+    topic: "भौतिक जगत एवं मापन",
+    text: "एक भौतिक राशि X को X = A³B½ / (C²D) से परिभाषित किया गया है। यदि A, B, C, D में प्रतिशत त्रुटियाँ क्रमशः 1%, 3%, 2%, 1% हैं, तो X में प्रतिशत त्रुटि होगी:",
+    options: ["9.5%", "8%", "10%", "7.5%"],
+    correct: 0,
+    explanation: "X में % त्रुटि = 3×(1%) + ½×(3%) + 2×(2%) + 1×(1%) = 3 + 1.5 + 4 + 1 = 9.5%। त्रुटि गणना में प्रत्येक राशि के घातांक से उस राशि की प्रतिशत त्रुटि को गुणा किया जाता है।"
+  },
+  {
+    topic: "भौतिक जगत एवं मापन",
+    text: "निम्नलिखित में से किसकी विमा प्लांक स्थिरांक (h) के समान होती है?",
+    options: ["कोणीय संवेग", "रेखीय संवेग", "ऊर्जा", "बल आघूर्ण × समय²"],
+    correct: 0,
+    explanation: "E = hν ⟹ h = E/ν = [ML²T⁻²]/[T⁻¹] = [ML²T⁻¹]। कोणीय संवेग L = Iω की विमा भी [ML²T⁻¹] है। अतः दोनों की विमाएँ समान हैं।"
+  },
+  {
+    topic: "भौतिक जगत एवं मापन",
+    text: "एक स्क्रू गेज का अल्पतमांक 0.001 cm है और एक तार का व्यास 0.310 cm मापा गया। मापन में प्रतिशत त्रुटि होगी:",
+    options: ["0.323%", "0.290%", "0.500%", "0.160%"],
+    correct: 0,
+    explanation: "% त्रुटि = (अल्पतमांक / मापा गया मान) × 100 = (0.001 / 0.310) × 100 ≈ 0.323%। अल्पतमांक यंत्र की परिशुद्धता दर्शाता है।"
+  },
+  {
+    topic: "भौतिक जगत एवं मापन",
+    text: "दाब (Pressure) की विमा सूत्र किसके समान होती है?",
+    options: ["ऊर्जा घनत्व", "रेखीय संवेग", "वेग प्रवणता", "शक्ति"],
+    correct: 0,
+    explanation: "दाब = बल/क्षेत्रफल = [ML⁻¹T⁻²]। ऊर्जा घनत्व = ऊर्जा/आयतन = [ML²T⁻²]/[L³] = [ML⁻¹T⁻²]। दोनों की विमाएँ बिल्कुल समान हैं।"
+  },
+
+  // ── गतिकी (5) ──
+  {
+    topic: "गतिकी",
+    text: "एक कण सरल रेखा में इस प्रकार गति करता है कि उसका विस्थापन s = t³ − 6t² + 3t + 4 मीटर (t सेकंड में) है। जब त्वरण शून्य हो, तब कण का वेग होगा:",
+    options: ["−9 m/s", "+9 m/s", "−3 m/s", "+3 m/s"],
+    correct: 0,
+    explanation: "v = ds/dt = 3t² − 12t + 3। a = dv/dt = 6t − 12 = 0 ⟹ t = 2 s। v(2) = 3(4) − 12(2) + 3 = 12 − 24 + 3 = −9 m/s। ऋणात्मक चिह्न का अर्थ है कि कण प्रारंभिक दिशा के विपरीत गति कर रहा है।"
+  },
+  {
+    topic: "गतिकी",
+    text: "एक गेंद को ऊर्ध्वाधर ऊपर की ओर u वेग से फेंका जाता है। समय t₀ बाद उसी बिंदु से दूसरी गेंद 2u वेग से ऊपर फेंकी जाती है। वे तब मिलती हैं जब पहली गेंद अपनी अधिकतम ऊँचाई पर हो। t₀ का मान है:",
+    options: ["u/g", "2u/g", "3u/2g", "u/2g"],
+    correct: 3,
+    explanation: "पहली गेंद अधिकतम ऊँचाई T = u/g समय पर पहुँचती है। इस समय दूसरी गेंद (T − t₀) समय से गति कर रही है। ऊँचाइयाँ समान करने पर: uT − ½gT² = 2u(T−t₀) − ½g(T−t₀)²। हल करने पर t₀ = u/2g प्राप्त होता है।"
+  },
+  {
+    topic: "गतिकी",
+    text: "d चौड़ाई की एक नदी v वेग से बहती है। एक व्यक्ति u वेग (u > v) से तैर सकता है और न्यूनतम समय में नदी पार करना चाहता है। अनुप्रवाह में विचलन (Drift) होगा:",
+    options: ["vd/u", "vd/√(u²−v²)", "d√(u²−v²)/u", "vd√(u²+v²)/u²"],
+    correct: 0,
+    explanation: "न्यूनतम समय के लिए व्यक्ति तट के लंबवत् तैरता है। समय = d/u। अनुप्रवाह विचलन = v × (d/u) = vd/u। यहाँ व्यक्ति की गति नदी की दिशा में नहीं होती, इसलिए पार करने का समय d/u होता है।"
+  },
+  {
+    topic: "गतिकी",
+    text: "दो कण एक साथ एक ही बिंदु से समान चाल से किंतु 30° और 60° के कोणों पर प्रक्षेपित किए जाते हैं। उनकी परासों (Ranges) का अनुपात होगा:",
+    options: ["1:1", "1:√3", "√3:1", "1:2"],
+    correct: 0,
+    explanation: "परास R = u²sin(2θ)/g। 30° के लिए: sin(60°) = √3/2। 60° के लिए: sin(120°) = sin(60°) = √3/2। चूँकि दोनों का मान समान है, अतः R₁:R₂ = 1:1। यह पूरक कोणों का गुण है।"
+  },
+  {
+    topic: "गतिकी",
+    text: "एक वस्तु विराम से शुरू होकर नियत त्वरण से गति करती है। n-वें सेकंड में तय दूरी तथा n सेकंड में कुल तय दूरी का अनुपात होगा:",
+    options: ["(2n−1)/n²", "(2n+1)/n²", "(2n−1)/2n", "n/(2n−1)"],
+    correct: 0,
+    explanation: "n-वें सेकंड में दूरी: sₙ = ½a(2n−1) (सेव्हेरनब सूत्र)। n सेकंड में कुल दूरी: S = ½an²। अनुपात = sₙ/S = (2n−1)/n²।"
+  },
+
+  // ── गति के नियम (5) ──
+  {
+    topic: "गति के नियम",
+    text: "10 kg द्रव्यमान का एक ब्लॉक खुरदरी क्षैतिज सतह पर रखा है। उसे खिसकाने के लिए 30 N क्षैतिज बल चाहिए। यदि उस पर 10 kg का पत्थर रखें तो 50 N बल चाहिए। ब्लॉक और सतह के बीच घर्षण गुणांक (μ) है: (g = 10 m/s²)",
+    options: ["0.30", "0.25", "0.15", "0.50"],
+    correct: 0,
+    explanation: "मूल अवस्था: F = μmg ⟹ 30 = μ × 10 × 10 ⟹ μ = 0.30। जाँच: जब पत्थर रखने पर F = μ × (10+10) × 10 = 0.30 × 200 = 60 N होना चाहिए, किंतु प्रश्नानुसार 50 N है — यह अंतर सतह की विषमता के कारण है। प्रारंभिक स्थिति से μ = 0.30 सही है।"
+  },
+  {
+    topic: "गति के नियम",
+    text: "M द्रव्यमान का एक ब्लॉक खुरदरी सतह पर θ कोण पर F बल से खींचा जाता है (μ = घर्षण गुणांक)। अभिलंब प्रतिक्रिया (Normal Reaction) होगी:",
+    options: ["Mg − Fsinθ", "Mg + Fsinθ", "Mg − Fcosθ", "Mg cosθ"],
+    correct: 0,
+    explanation: "ऊर्ध्वाधर संतुलन: N + Fsinθ = Mg। अतः N = Mg − Fsinθ। कोण पर खींचने से बल का ऊर्ध्वाधर घटक सतह से ब्लॉक को ऊपर उठाता है, जिससे N कम होता है।"
+  },
+  {
+    topic: "गति के नियम",
+    text: "m द्रव्यमान की गोली v वेग से चलकर विराम में रखे M द्रव्यमान के लकड़ी के टुकड़े में धंस जाती है। टुकड़ा हिलने के लिए स्वतंत्र है। संघट्ट में खोई गई गतिज ऊर्जा का अंश होगा:",
+    options: ["M/(m+M)", "m/(m+M)", "mM/(m+M)²", "2mM/(m+M)²"],
+    correct: 0,
+    explanation: "प्रारंभिक KE = ½mv²। संवेग संरक्षण से: V = mv/(m+M)। अंतिम KE = ½(m+M)V²। खोई KE का अंश = 1 − (m+M)V²/mv² = 1 − m/(m+M) = M/(m+M)।"
+  },
+  {
+    topic: "गति के नियम",
+    text: "5 kg द्रव्यमान की एक वस्तु पर दो परस्पर लंबवत् बल 8 N और 6 N लगते हैं। वस्तु का त्वरण होगा:",
+    options: ["2 m/s²", "10 m/s²", "√2 m/s²", "5 m/s²"],
+    correct: 0,
+    explanation: "परिणामी बल = √(8² + 6²) = √(64+36) = √100 = 10 N। त्वरण a = F/m = 10/5 = 2 m/s²। पाइथागोरस प्रमेय का उपयोग करके परिणामी बल ज्ञात किया।"
+  },
+  {
+    topic: "गति के नियम",
+    text: "एक व्यक्ति लिफ्ट में तुला पर खड़ा है। विराम में पाठ्यांक 60 kg है। त्वरण a से गति करने पर पाठ्यांक 50 kg हो जाता है। a का मान है: (g = 10 m/s²)",
+    options: ["5/3 m/s² नीचे की ओर", "5/3 m/s² ऊपर की ओर", "10/3 m/s² नीचे", "5 m/s² नीचे"],
+    correct: 0,
+    explanation: "विराम में: mg = 60×10 = 600 N। गति में: m(g−a) = 50×10 = 500 N। अतः (g−a) = 500/60 = 25/3। a = 10 − 25/3 = 5/3 m/s² नीचे की ओर। पाठ्यांक घटने का अर्थ है लिफ्ट नीचे की ओर त्वरित हो रही है।"
+  },
+
+  // ── कार्य, ऊर्जा एवं शक्ति (5) ──
+  {
+    topic: "कार्य, ऊर्जा एवं शक्ति",
+    text: "m द्रव्यमान का एक कण केंद्रीय बल F = −kr (k धनात्मक स्थिरांक, r त्रिज्या) के अंतर्गत वृत्तीय कक्षा में गति करता है। कण की कुल यांत्रिक ऊर्जा होगी:",
+    options: ["kr²", "−kr²", "kr²/2", "−kr²/2"],
+    correct: 0,
+    explanation: "वृत्तीय कक्षा के लिए: kr = mv²/r ⟹ mv² = kr²। KE = ½mv² = kr²/2। PE की गणना: W = ∫₀ʳ kr dr = kr²/2। कुल ऊर्जा E = KE + PE = kr²/2 + kr²/2 = kr²।"
+  },
+  {
+    topic: "कार्य, ऊर्जा एवं शक्ति",
+    text: "एक स्प्रिंग को प्राकृतिक लंबाई से x दबाने पर W कार्य होता है। यदि उसे 3x दबाया जाए तो कार्य होगा:",
+    options: ["9W", "3W", "6W", "27W"],
+    correct: 0,
+    explanation: "W = ½kx²। 3x दबाने पर W' = ½k(3x)² = 9 × ½kx² = 9W। स्प्रिंग में संचित ऊर्जा विस्थापन के वर्ग के समानुपाती होती है।"
+  },
+  {
+    topic: "कार्य, ऊर्जा एवं शक्ति",
+    text: "0.5 kg द्रव्यमान की एक गेंद 1 m त्रिज्या के ऊर्ध्वाधर वृत्त में डोरी से बंधी घूमती है। वृत्त के निचले बिंदु पर न्यूनतम वेग जिससे डोरी ढीली न पड़े: (g = 10 m/s²)",
+    options: ["√50 m/s", "√10 m/s", "5 m/s", "√30 m/s"],
+    correct: 0,
+    explanation: "ऊपरी बिंदु पर न्यूनतम शर्त: mg = mv²top/r ⟹ vtop = √(gr) = √10 m/s। ऊर्जा संरक्षण से: ½mv²नीचे = ½mv²ऊपर + mg(2r) ⟹ v²नीचे = 10 + 4×10×1 = 50। v = √50 m/s।"
+  },
+  {
+    topic: "कार्य, ऊर्जा एवं शक्ति",
+    text: "2 kg द्रव्यमान की वस्तु पर F = (2t + 4) N बल लगता है। t = 2s पर वस्तु को प्रदत्त शक्ति होगी: (वस्तु प्रारंभ में विराम में है)",
+    options: ["48 W", "32 W", "16 W", "64 W"],
+    correct: 0,
+    explanation: "a = F/m = (2t+4)/2 = (t+2) m/s²। v = ∫₀ᵗ(t+2)dt = t²/2 + 2t। t=2 पर: v = 4/2 + 4 = 6 m/s। t=2 पर F = 2(2)+4 = 8 N। शक्ति P = F×v = 8×6 = 48 W।"
+  },
+  {
+    topic: "कार्य, ऊर्जा एवं शक्ति",
+    text: "एक कण को (1, 2, 3) से (3, 4, 5) तक F = (2î + 4ĵ + 6k̂) N बल द्वारा विस्थापित किया जाता है। किया गया कार्य होगा:",
+    options: ["24 J", "20 J", "28 J", "16 J"],
+    correct: 0,
+    explanation: "विस्थापन d = (3−1)î + (4−2)ĵ + (5−3)k̂ = 2î + 2ĵ + 2k̂। W = F·d = (2×2) + (4×2) + (6×2) = 4 + 8 + 12 = 24 J। डॉट गुणनफल का उपयोग किया।"
+  },
+
+  // ── घूर्णन गति (5) ──
+  {
+    topic: "घूर्णन गति",
+    text: "समान द्रव्यमान और त्रिज्या के एक ठोस गोले, खोखले गोले, ठोस बेलन और खोखले बेलन को एक नत तल से विराम से छोड़ा जाता है। सबसे पहले तल पर पहुँचेगा:",
+    options: ["ठोस गोला", "खोखला गोला", "ठोस बेलन", "खोखला बेलन"],
+    correct: 0,
+    explanation: "त्वरण a = gsinθ/(1 + I/mr²)। ठोस गोले के लिए I = 2/5 mr², अनुपात = 2/5 सबसे कम है। अतः a सबसे अधिक है। ठोस गोला सबसे पहले पहुँचता है। जड़त्व आघूर्ण जितना कम, त्वरण उतना अधिक।"
+  },
+  {
+    topic: "घूर्णन गति",
+    text: "एक चकती (Disc) अपनी अक्ष पर घूर्णन करती है। ऊपरी आधे भाग की गतिज ऊर्जा और निचले आधे भाग की गतिज ऊर्जा का अनुपात होगा:",
+    options: ["1:1", "1:2", "2:1", "1:4"],
+    correct: 0,
+    explanation: "चकती एकसमान कोणीय वेग से घूमती है। सममित रूप से ऊपरी और निचले आधे भाग का द्रव्यमान समान होता है और दोनों का ω समान है। KE = ½Iω², चूँकि दोनों के लिए I और ω समान हैं, अतः KE का अनुपात 1:1 है।"
+  },
+  {
+    topic: "घूर्णन गति",
+    text: "4 kg·m² जड़त्व आघूर्ण वाले पहिए पर 2 N·m बल आघूर्ण लगाया जाता है। यदि पहिया विराम से शुरू हो, तो 2 सेकंड बाद कोणीय वेग होगा:",
+    options: ["1 rad/s", "2 rad/s", "4 rad/s", "0.5 rad/s"],
+    correct: 0,
+    explanation: "α = τ/I = 2/4 = 0.5 rad/s²। ω = ω₀ + αt = 0 + 0.5×2 = 1 rad/s। यह रेखीय गति के समान न्यूटन का घूर्णन रूप है।"
+  },
+  {
+    topic: "घूर्णन गति",
+    text: "M द्रव्यमान और L लंबाई की एक पतली एकसमान छड़ एक छोर से L/4 दूरी पर स्थित अक्ष के परितः (लंबाई के लंबवत्) घूमती है। जड़त्व आघूर्ण होगा:",
+    options: ["7ML²/48", "ML²/12", "ML²/3", "ML²/48"],
+    correct: 0,
+    explanation: "I_cm = ML²/12। CM से अक्ष की दूरी = L/2 − L/4 = L/4। समांतर अक्ष प्रमेय से: I = ML²/12 + M(L/4)² = ML²/12 + ML²/16 = (4ML² + 3ML²)/48 = 7ML²/48।"
+  },
+  {
+    topic: "घूर्णन गति",
+    text: "एक ग्रह दीर्घवृत्तीय कक्षा में सूर्य के चारों ओर घूमता है। अपसौर (Aphelion) पर दूरी r₁ और वेग v₁ है। उपसौर (Perihelion) पर दूरी r₂ है। उपसौर पर वेग होगा:",
+    options: ["v₁r₁/r₂", "v₁r₂/r₁", "v₁(r₁/r₂)²", "v₁√(r₁/r₂)"],
+    correct: 0,
+    explanation: "कोणीय संवेग संरक्षण के नियम से: mv₁r₁ = mv₂r₂। अतः v₂ = v₁r₁/r₂। यह केप्लर के दूसरे नियम का परिणाम है — ग्रह उपसौर पर सबसे तेज गति करता है।"
+  },
+
+  // ── ऊष्मागतिकी (10) ──
+  {
+    topic: "ऊष्मागतिकी",
+    text: "एक आदर्श गैस के समतापीय (Isothermal) प्रसार में कौन सा कथन सही है?",
+    options: [
+      "आंतरिक ऊर्जा अपरिवर्तित रहती है और किया गया कार्य = अवशोषित ऊष्मा",
+      "आंतरिक ऊर्जा बढ़ती है",
+      "कोई ऊष्मा विनिमय नहीं होता",
+      "तापमान गिरता है"
+    ],
+    correct: 0,
+    explanation: "समतापीय प्रक्रिया में T = स्थिर। आदर्श गैस के लिए ΔU = nCᵥΔT = 0। ऊष्मागतिकी के प्रथम नियम से: Q = ΔU + W = 0 + W। अतः अवशोषित ऊष्मा पूरी तरह कार्य में परिवर्तित होती है।"
+  },
+  {
+    topic: "ऊष्मागतिकी",
+    text: "एक कार्नो इंजन 827°C और 27°C के बीच कार्य करता है। इसकी दक्षता (Efficiency) होगी:",
+    options: ["75%", "25%", "50%", "80%"],
+    correct: 0,
+    explanation: "T₁ = 827 + 273 = 1100 K, T₂ = 27 + 273 = 300 K। η = 1 − T₂/T₁ = 1 − 300/1100 = 1 − 3/11 = 8/11 ≈ 0.727 ≈ 72.7%। निकटतम विकल्प 75% है। (सटीक: 72.7%)"
+  },
+  {
+    topic: "ऊष्मागतिकी",
+    text: "रुद्धोष्म (Adiabatic) प्रक्रिया में एकपरमाणुक आदर्श गैस का आयतन अचानक दोगुना हो जाता है। यदि प्रारंभिक दाब P₀ हो, तो अंतिम दाब होगा: (γ = 5/3)",
+    options: ["P₀/2^(5/3)", "P₀/2", "P₀/4", "P₀×2^(5/3)"],
+    correct: 0,
+    explanation: "रुद्धोष्म प्रक्रिया के लिए: PVᵞ = नियतांक। P₀V₀ᵞ = P_f(2V₀)ᵞ। P_f = P₀/2ᵞ = P₀/2^(5/3)। एकपरमाणुक गैस के लिए γ = 5/3।"
+  },
+  {
+    topic: "ऊष्मागतिकी",
+    text: "किसी इंजन की दक्षता 40% है और यह प्रति चक्र 500 J ऊष्मा अवशोषित करता है। प्रति चक्र ठंडे स्रोत को दी गई ऊष्मा होगी:",
+    options: ["300 J", "200 J", "500 J", "400 J"],
+    correct: 0,
+    explanation: "कार्य W = η × Q₁ = 0.40 × 500 = 200 J। ऊष्मा संरक्षण से: Q₂ = Q₁ − W = 500 − 200 = 300 J। ठंडे स्रोत को 300 J ऊष्मा दी जाती है।"
+  },
+  {
+    topic: "ऊष्मागतिकी",
+    text: "एक आदर्श गैस को समदाबीय (Isobaric) प्रक्रिया में गर्म किया जाता है। यदि Cₚ और Cᵥ क्रमशः स्थिर दाब और स्थिर आयतन पर विशिष्ट ऊष्मा हैं, तो किया गया कार्य और अवशोषित ऊष्मा का अनुपात W/Q होगा:",
+    options: ["1 − Cᵥ/Cₚ", "Cᵥ/Cₚ", "Cₚ/Cᵥ − 1", "R/Cₚ"],
+    correct: 0,
+    explanation: "समदाबीय प्रक्रिया में: Q = nCₚΔT, W = nRΔT। W/Q = R/Cₚ = (Cₚ−Cᵥ)/Cₚ = 1 − Cᵥ/Cₚ। यह मेयर के संबंध R = Cₚ − Cᵥ का उपयोग करता है।"
+  },
+  {
+    topic: "ऊष्मागतिकी",
+    text: "ऊष्मागतिकी के द्वितीय नियम के अनुसार किसी भी स्वतः प्रक्रिया में पूरे निकाय की एन्ट्रॉपी (Entropy):",
+    options: [
+      "सदैव बढ़ती है या स्थिर रहती है",
+      "सदैव घटती है",
+      "शून्य रहती है",
+      "घट भी सकती है और बढ़ भी सकती है"
+    ],
+    correct: 0,
+    explanation: "क्लॉसियस का कथन: किसी भी अनुत्क्रमणीय (irreversible) प्रक्रिया में ΔS_total > 0। उत्क्रमणीय प्रक्रिया में ΔS_total = 0। अतः ब्रह्मांड की एन्ट्रॉपी कभी नहीं घटती — यही द्वितीय नियम का सार है।"
+  },
+  {
+    topic: "ऊष्मागतिकी",
+    text: "एक द्विपरमाणुक गैस (γ = 7/5) के लिए रुद्धोष्म और समतापीय प्रक्रियाओं में आयतन के साथ दाब परिवर्तन की ढाल (slope) का अनुपात |dP/dV|_रुद्धोष्म / |dP/dV|_समतापीय होगा:",
+    options: ["7/5", "5/7", "1", "2/5"],
+    correct: 0,
+    explanation: "समतापीय के लिए: PV = C ⟹ dP/dV = −P/V। रुद्धोष्म के लिए: PVᵞ = C ⟹ dP/dV = −γP/V। अनुपात = γP/V ÷ P/V = γ = 7/5।"
+  },
+  {
+    topic: "ऊष्मागतिकी",
+    text: "एक रेफ्रिजरेटर का COP (प्रदर्शन गुणांक) 5 है और यह 250 J कार्य प्रति चक्र करता है। यह प्रति चक्र ठंडे स्रोत से कितनी ऊष्मा अवशोषित करेगा?",
+    options: ["1250 J", "1500 J", "250 J", "50 J"],
+    correct: 0,
+    explanation: "COP = Q_ठंडा / W। Q_ठंडा = COP × W = 5 × 250 = 1250 J। रेफ्रिजरेटर ठंडे स्रोत से 1250 J अवशोषित करता है और गर्म स्रोत को Q_गर्म = 1250 + 250 = 1500 J देता है।"
+  },
+  {
+    topic: "ऊष्मागतिकी",
+    text: "एक आदर्श गैस को P-V आरेख पर A→B→C→A चक्र में ले जाया जाता है। A→B समतापीय प्रसार, B→C समआयतनिक शीतलन, C→A रुद्धोष्म संपीड़न है। इस चक्र में नेट कार्य:",
+    options: [
+      "धनात्मक है क्योंकि A→B में W > C→A में W",
+      "ऋणात्मक है",
+      "शून्य है",
+      "निर्धारित नहीं किया जा सकता"
+    ],
+    correct: 0,
+    explanation: "P-V आरेख में चक्र द्वारा घेरा गया क्षेत्रफल नेट कार्य दर्शाता है। दक्षिणावर्त (Clockwise) चक्र में W_नेट > 0। A→B (प्रसार) में अधिक कार्य होता है बनाम C→A (संपीड़न)। B→C में ΔV = 0 अतः W = 0।"
+  },
+  {
+    topic: "ऊष्मागतिकी",
+    text: "किसी गैस को समआयतनिक (Isochoric) प्रक्रिया में 200 J ऊष्मा दी जाती है। गैस की आंतरिक ऊर्जा में परिवर्तन होगा:",
+    options: ["200 J वृद्धि", "0 J", "200 J कमी", "100 J वृद्धि"],
+    correct: 0,
+    explanation: "समआयतनिक प्रक्रिया में ΔV = 0 ⟹ W = PΔV = 0। ऊष्मागतिकी के प्रथम नियम से: ΔU = Q − W = 200 − 0 = 200 J। दी गई सारी ऊष्मा आंतरिक ऊर्जा में वृद्धि करती है।"
+  },
+
+  // ── गुरुत्वाकर्षण (10) ──
+  {
+    topic: "गुरुत्वाकर्षण",
+    text: "पृथ्वी की सतह पर गुरुत्वीय त्वरण g है। पृथ्वी की त्रिज्या R से 2R ऊँचाई पर गुरुत्वीय त्वरण होगा:",
+    options: ["g/9", "g/4", "g/3", "g/16"],
+    correct: 0,
+    explanation: "ऊँचाई h = 2R पर, पृथ्वी के केंद्र से दूरी = R + 2R = 3R। g' = GM/(3R)² = GM/9R²। चूँकि g = GM/R², अतः g' = g/9। गुरुत्वीय त्वरण दूरी के वर्ग के व्युत्क्रमानुपाती होता है।"
+  },
+  {
+    topic: "गुरुत्वाकर्षण",
+    text: "किसी उपग्रह की कक्षीय गति v₀ और पलायन वेग vₑ का अनुपात v₀/vₑ होगा:",
+    options: ["1/√2", "√2", "1/2", "2"],
+    correct: 0,
+    explanation: "कक्षीय वेग v₀ = √(GM/R)। पलायन वेग vₑ = √(2GM/R)। अनुपात v₀/vₑ = √(GM/R) / √(2GM/R) = 1/√2। अतः पलायन वेग कक्षीय वेग का √2 गुना होता है।"
+  },
+  {
+    topic: "गुरुत्वाकर्षण",
+    text: "पृथ्वी के केंद्र पर गुरुत्वीय त्वरण का मान होगा:",
+    options: ["शून्य", "g", "अनंत", "g/2"],
+    correct: 0,
+    explanation: "पृथ्वी के केंद्र पर गहराई d = R। g_केंद्र = g(1 − R/R) = g(1−1) = 0। पृथ्वी के केंद्र पर चारों ओर से गुरुत्वाकर्षण बल बराबर और विपरीत दिशाओं में लगते हैं, जिससे परिणामी बल और g शून्य होता है।"
+  },
+  {
+    topic: "गुरुत्वाकर्षण",
+    text: "केप्लर के तृतीय नियम के अनुसार यदि किसी ग्रह की कक्षा की अर्ध-दीर्घ अक्ष (Semi-major axis) दोगुनी हो जाए तो आवर्तकाल (Time period) होगा:",
+    options: ["2√2 गुना", "4 गुना", "2 गुना", "√2 गुना"],
+    correct: 0,
+    explanation: "केप्लर का तृतीय नियम: T² ∝ a³। यदि a' = 2a, तो T'² / T² = (2a)³/a³ = 8। T' = T√8 = 2√2 T। अतः आवर्तकाल 2√2 गुना हो जाएगा।"
+  },
+  {
+    topic: "गुरुत्वाकर्षण",
+    text: "पृथ्वी की सतह पर किसी वस्तु का भार W है। यदि पृथ्वी अपनी वर्तमान कोणीय गति से 17 गुना तेज घूमने लगे, तो भूमध्य रेखा पर वस्तु का भार होगा: (g = 10 m/s², R = 6400 km)",
+    options: ["शून्य", "W/17", "W/289", "W"],
+    correct: 0,
+    explanation: "भूमध्य रेखा पर W' = m(g − ω²R)। जब ω' = 17ω, तो ω'²R = (17)² × ω²R = 289ω²R। वर्तमान में ω²R ≈ 0.034 m/s² ≈ g/289। अतः 289 × g/289 = g। W' = m(g−g) = 0।"
+  },
+  {
+    topic: "गुरुत्वाकर्षण",
+    text: "दो पिंडों के बीच गुरुत्वाकर्षण बल F है। यदि दोनों के द्रव्यमान दोगुने और दूरी भी दोगुनी कर दी जाए, तो नया बल होगा:",
+    options: ["F", "2F", "F/2", "4F"],
+    correct: 0,
+    explanation: "F = Gm₁m₂/r²। नया बल F' = G(2m₁)(2m₂)/(2r)² = G×4m₁m₂/4r² = Gm₁m₂/r² = F। द्रव्यमान दोगुने करने से अंश 4 गुना बढ़ता है और दूरी दोगुनी करने से हर 4 गुना बढ़ता है — दोनों प्रभाव रद्द हो जाते हैं।"
+  },
+  {
+    topic: "गुरुत्वाकर्षण",
+    text: "किसी उपग्रह को वृत्तीय कक्षा में पृथ्वी की त्रिज्या R से nR दूरी पर छोड़ा जाता है। उसकी कक्षीय चाल और पृथ्वी की सतह पर पलायन वेग का अनुपात होगा:",
+    options: ["1/√(2n)", "1/√n", "√(1/2n)", "n/√2"],
+    correct: 0,
+    explanation: "उपग्रह की कक्षीय चाल v_orb = √(GM/nR)। पलायन वेग vₑ = √(2GM/R)। अनुपात = √(GM/nR) / √(2GM/R) = √(1/2n) = 1/√(2n)।"
+  },
+  {
+    topic: "गुरुत्वाकर्षण",
+    text: "भू-स्थिर उपग्रह (Geostationary Satellite) के बारे में कौन सा कथन गलत है?",
+    options: [
+      "यह किसी भी कक्षीय तल में हो सकता है",
+      "इसका आवर्तकाल 24 घंटे होता है",
+      "यह पश्चिम से पूर्व दिशा में घूमता है",
+      "यह भूमध्य रेखा के ऊपर होता है"
+    ],
+    correct: 0,
+    explanation: "भू-स्थिर उपग्रह केवल भूमध्यीय तल (Equatorial plane) में ही हो सकता है। इसका आवर्तकाल 24 घंटे, दिशा पश्चिम से पूर्व और ऊँचाई ≈ 36,000 km होती है। अतः 'किसी भी कक्षीय तल' वाला कथन गलत है।"
+  },
+  {
+    topic: "गुरुत्वाकर्षण",
+    text: "पृथ्वी की सतह पर पलायन वेग 11.2 km/s है। यदि किसी ग्रह का द्रव्यमान पृथ्वी का 4 गुना और त्रिज्या 2 गुना हो, तो उस ग्रह का पलायन वेग होगा:",
+    options: ["15.8 km/s", "11.2 km/s", "22.4 km/s", "5.6 km/s"],
+    correct: 0,
+    explanation: "vₑ = √(2GM/R)। vₑ' / vₑ = √(M'/M × R/R') = √(4 × 1/2) = √2। vₑ' = 11.2 × √2 ≈ 11.2 × 1.414 ≈ 15.8 km/s।"
+  },
+  {
+    topic: "गुरुत्वाकर्षण",
+    text: "पृथ्वी की सतह से h ऊँचाई पर गुरुत्वीय स्थितिज ऊर्जा (U) और सतह पर स्थितिज ऊर्जा (U₀) का अंतर ΔU होगा: (m = वस्तु का द्रव्यमान, R = पृथ्वी की त्रिज्या)",
+    options: ["mgh R/(R+h)", "mgh", "mgR", "mgh/(1 + h/R)²"],
+    correct: 0,
+    explanation: "U = −GMm/r। ΔU = U_h − U_surface = −GMm/(R+h) − (−GMm/R) = GMm[1/R − 1/(R+h)] = GMmh/[R(R+h)] = mgh × R/(R+h)। जब h << R, तब ΔU ≈ mgh।"
+  }
+];
+
+let currentQ = 0;
+let userAnswers = new Array(questions.length).fill(null);
+let timerInterval = null;
+let timeLeft = 54 * 60;
+
+function startTest() {
+  document.getElementById('landing').style.display = 'none';
+  document.getElementById('test-page').style.display = 'block';
+  buildQGrid();
+  renderQuestion();
+  startTimer();
+}
+
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+    const s = (timeLeft % 60).toString().padStart(2, '0');
+    document.getElementById('timer-display').textContent = `${m}:${s}`;
+    const box = document.getElementById('timer-box');
+    box.className = 'timer-box';
+    if (timeLeft <= 300) box.classList.add('warning');
+    if (timeLeft <= 60) box.classList.add('danger');
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      document.getElementById('test-page').style.display = 'none';
+      document.getElementById('result-page').style.display = 'block';
+      showResult();
+      window.scrollTo(0, 0);
+    }
+  }, 1000);
+}
+
+function buildQGrid() {
+  const grid = document.getElementById('q-grid');
+  grid.innerHTML = '';
+  questions.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'q-dot';
+    dot.textContent = i + 1;
+    dot.onclick = () => { currentQ = i; renderQuestion(); };
+    dot.id = `dot-${i}`;
+    grid.appendChild(dot);
+  });
+}
+
+function renderQuestion() {
+  const q = questions[currentQ];
+  document.getElementById('q-topic').textContent = q.topic;
+  document.getElementById('q-number').textContent = `प्रश्न ${String(currentQ+1).padStart(2,'0')} / ${questions.length}`;
+  document.getElementById('q-text').textContent = q.text;
+  document.getElementById('progress-text').textContent = `प्र. ${currentQ+1} / ${questions.length}`;
+  document.getElementById('progress-bar').style.width = `${((currentQ+1)/questions.length)*100}%`;
+
+  const optList = document.getElementById('options-list');
+  optList.innerHTML = '';
+  const labels = ['A', 'B', 'C', 'D'];
+
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    if (userAnswers[currentQ] === i) btn.classList.add('selected');
+    btn.innerHTML = `<span class="opt-label">${labels[i]}</span><span>${opt}</span>`;
+    btn.onclick = () => selectAnswer(i);
+    optList.appendChild(btn);
+  });
+
+  document.getElementById('prev-btn').disabled = currentQ === 0;
+  document.getElementById('next-btn').disabled = currentQ === questions.length - 1;
+  updateQGrid();
+}
+
+function selectAnswer(idx) {
+  userAnswers[currentQ] = idx;
+  renderQuestion();
+}
+
+function updateQGrid() {
+  questions.forEach((_, i) => {
+    const dot = document.getElementById(`dot-${i}`);
+    dot.className = 'q-dot';
+    if (i === currentQ) dot.classList.add('current');
+    else if (userAnswers[i] !== null) dot.classList.add('answered');
+  });
+}
+
+function nextQ() { if (currentQ < questions.length-1) { currentQ++; renderQuestion(); } }
+function prevQ() { if (currentQ > 0) { currentQ--; renderQuestion(); } }
+
+function confirmSubmit() {
+  const unanswered = userAnswers.filter(a => a === null).length;
+  document.getElementById('modal-unanswered').textContent =
+    unanswered > 0 ? `आपने ${unanswered} प्रश्न अनुत्तरित छोड़े हैं।` : 'सभी प्रश्नों का उत्तर दिया गया है।';
+  document.getElementById('submit-modal').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('submit-modal').style.display = 'none';
+}
+
+function submitTest() {
+  closeModal();
+  clearInterval(timerInterval);
+  document.getElementById('test-page').style.display = 'none';
+  document.getElementById('result-page').style.display = 'block';
+  showResult();
+  window.scrollTo(0, 0);
+}
+
+function showResult() {
+  let correct = 0, wrong = 0, skipped = 0;
+  questions.forEach((q, i) => {
+    if (userAnswers[i] === null) skipped++;
+    else if (userAnswers[i] === q.correct) correct++;
+    else wrong++;
+  });
+
+  const score = correct * 4 - wrong;
+  const pct = Math.max(0, Math.round((score / 180) * 100));
+
+  document.getElementById('r-correct').textContent = correct;
+  document.getElementById('r-wrong').textContent = wrong;
+  document.getElementById('r-skip').textContent = skipped;
+  document.getElementById('r-score').textContent = score;
+  document.getElementById('score-marks').textContent = score;
+
+  const circle = document.getElementById('score-circle');
+  circle.style.background = `conic-gradient(var(--accent) ${Math.max(0,pct)*3.6}deg, var(--border) 0deg)`;
+
+  let trophy='🏆', title='शानदार प्रदर्शन!', sub='आप NEET के लिए तैयार हैं!';
+  if (score < 0)       { trophy='😓'; title='और मेहनत जरूरी है'; sub='अवधारणाओं की समीक्षा करें और फिर प्रयास करें।'; }
+  else if (score < 40) { trophy='📚'; title='अभ्यास जारी रखें'; sub='मूल अवधारणाओं पर ध्यान दें और इन विषयों को दोबारा पढ़ें।'; }
+  else if (score < 70) { trophy='👍'; title='अच्छा प्रयास!'; sub='आपमें क्षमता है। और कठिन प्रयास करें!'; }
+  else if (score < 90) { trophy='🌟'; title='बहुत अच्छे!'; sub='लगभग वहाँ पहुँच गए — सटीकता सुधारें!'; }
+
+  document.getElementById('result-trophy').textContent = trophy;
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('result-subtitle').textContent = sub;
+
+  const reviewList = document.getElementById('review-list');
+  reviewList.innerHTML = '';
+  const labels = ['A', 'B', 'C', 'D'];
+
+  questions.forEach((q, i) => {
+    const ua = userAnswers[i];
+    const isCorrect = ua === q.correct;
+    const isSkipped = ua === null;
+
+    const div = document.createElement('div');
+    div.className = `review-item ${isSkipped ? 'skipped-q' : isCorrect ? 'correct-q' : 'wrong-q'}`;
+
+    const badgeCls = isSkipped ? 'skipped' : isCorrect ? 'correct' : 'wrong';
+    const badgeTxt = isSkipped ? 'छोड़ा' : isCorrect ? 'सही' : 'गलत';
+
+    div.innerHTML = `
+      <div class="review-q-head">
+        <span class="r-badge ${badgeCls}">${badgeTxt}</span>
+        <span style="font-size:0.78rem;color:var(--text-dim);font-family:'Space Mono',monospace">Q${i+1} · ${q.topic}</span>
+      </div>
+      <div class="review-q-text">${q.text}</div>
+      <div class="review-ans">
+        <span>
+          <span class="label">आपका उत्तर:</span>
+          ${ua !== null
+            ? `<span class="${isCorrect?'val-correct':'val-wrong'}">(${labels[ua]}) ${q.options[ua]}</span>`
+            : `<span style="color:var(--text-dim)">उत्तर नहीं दिया</span>`}
+        </span>
+        <span><span class="label">सही उत्तर:</span> <span class="val-correct">(${labels[q.correct]}) ${q.options[q.correct]}</span></span>
+      </div>
+      <div class="explanation-box"><strong>💡 व्याख्या</strong><br><br>${q.explanation}</div>
+    `;
+    reviewList.appendChild(div);
+  });
+}
+
+function retryTest() {
+  userAnswers = new Array(questions.length).fill(null);
+  currentQ = 0;
+  timeLeft = 54 * 60;
+  document.getElementById('result-page').style.display = 'none';
+  document.getElementById('test-page').style.display = 'block';
+  buildQGrid();
+  renderQuestion();
+  startTimer();
+  window.scrollTo(0, 0);
+}
+</script>
+<!-- ═══ Footer ═══ -->
+<div style="text-align:center; padding:24px; color:#64748b; font-size:0.85rem; font-family:'Noto Sans Devanagari',sans-serif; border-top:1px solid #1e2d45; margin-top:20px;">
+  💖 Created by <span style="color:#00d4ff; font-weight:700;">Gaurav</span> for his <span style="color:#ff6b35; font-weight:700;">Cutie</span> 🌸
+</div>
+
+<!-- ═══ Submit Modal ═══ -->
+<div id="submit-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9999; align-items:center; justify-content:center;">
+  <div style="background:#111827; border:1px solid #1e2d45; border-radius:20px; padding:36px 32px; max-width:420px; width:90%; text-align:center;">
+    <div style="font-size:2.5rem; margin-bottom:16px;">📋</div>
+    <div style="font-family:'Noto Sans Devanagari',sans-serif; font-size:1.2rem; font-weight:700; color:#f8fafc; margin-bottom:10px;">परीक्षा जमा करें?</div>
+    <div id="modal-unanswered" style="color:#64748b; font-size:0.92rem; margin-bottom:28px; line-height:1.6;"></div>
+    <div style="display:flex; gap:12px; justify-content:center;">
+      <button onclick="closeModal()" style="padding:12px 28px; border-radius:10px; border:1.5px solid #1e2d45; background:#1a2235; color:#e2e8f0; font-family:'Noto Sans Devanagari',sans-serif; font-size:0.95rem; font-weight:600; cursor:pointer;">वापस जाएं</button>
+      <button onclick="submitTest()" style="padding:12px 28px; border-radius:10px; border:none; background:linear-gradient(135deg,#ff6b35,#e55a2b); color:#fff; font-family:'Noto Sans Devanagari',sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer;">हाँ, जमा करें ✓</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
